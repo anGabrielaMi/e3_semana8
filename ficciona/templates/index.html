@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ficciona</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Barra de navegación principal -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/imagen_nav.png' %}" width="50" />
+          <strong>Ficciona</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'ingresar' %}">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'registrar' %}">Registro usuario</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'contrasena' %}">Recuperar Contraseña</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'perfil' %}">Modificar perfil</a>
+            </li>
+          </ul>
+
+          <form class="d-flex" role="search" id="form-busqueda">
+            <input class="form-control me-2" type="search" placeholder="Buscar reseñas" id="input-busqueda" />
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4" id="resultados-busqueda"></div>
+
+    <!-- Cabecera -->
+    <header class="position-relative mb-4">
+      <img src="{% static 'img/header.jpg' %}" alt="Cabecera Ficciona" class="header-img" />
+      <h1 class="position-absolute top-50 start-50 translate-middle fs-5" style="color: #eee5ee; font-family: 'Special Elite', monospace;">Reseñas.Escritas.Por ti</h1>
+    </header>
+
+    <!-- Categorías -->
+    <div class="container mt-4">
+      <h3 class="fuente-typewriter">Categorías</h3>
+      <div class="row justify-content-start">
+        <!-- Tarjeta Matemáticas -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/matematicas.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Matemáticas</h5>
+              <a href="{% url 'resenas_por_categoria' 'matematicas' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Medicina -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/medicina.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Medicina</h5>
+              <a href="{% url 'resenas_por_categoria' 'medicina' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Ciencia -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/ciencia.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Ciencia</h5>
+              <a href="{% url 'resenas_por_categoria' 'ciencia' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Arte -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/arte.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Arte</h5>
+              <a href="{% url 'resenas_por_categoria' 'arte' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Literatura -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/literatura.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Literatura</h5>
+              <a href="{% url 'resenas_por_categoria' 'literatura' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Historia -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3 mb-lg-0">
+          <div class="card card-altura">
+            <img src="{% static 'img/historia.png' %}" class="card-img-top img-ajustada" />
+            <div class="card-body">
+              <h5 class="card-title">Historia</h5>
+              <a href="{% url 'resenas_por_categoria' 'historia' %}" class="btn btn-ficciona">Ir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de reseña -->
+    {% if usuario_autenticado %}
+      <div class="container mt-5" id="formulario-reseña" style="display: none;">
+        <h4>Publicar nueva reseña</h4>
+        <form id="form-reseña">
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" required />
+          </div>
+          <div class="mb-3">
+            <label for="comentario" class="form-label">Comentario</label>
+            <textarea class="form-control" id="comentario" rows="4" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select class="form-select" id="categoria" required>
+              <option value="matematicas">Matemáticas</option>
+              <option value="medicina">Medicina</option>
+              <option value="ciencia">Ciencia</option>
+              <option value="arte">Arte</option>
+              <option value="literatura">Literatura</option>
+              <option value="historia">Historia</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar reseña</button>
+        </form>
+      </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer class="text-center text-white py-4 footer-espaciado" style="background: linear-gradient(to right, #2c2f73, #4b1d6f);">
+      <div class="container">
+        <p id="footer-texto">© 2025 Ficciona. Todos los derechos reservados.</p>
+        <p class="mb-0">
+          <a href="mailto:contacto@ficciona.com" id="link-contacto" class="text-white text-decoration-none">Contacto</a>
+        </p>
+      </div>
+    </footer>
+
+    <div id="estado-sesion"
+      data-logeado="{% if request.user.is_authenticated %}
+        true
+      {% else %}
+        false
+      {% endif %}"
+      data-usuario="{{ request.user.username }}"></div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>

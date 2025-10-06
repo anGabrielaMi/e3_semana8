@@ -1,0 +1,41 @@
+/* Fondo general */
+body {
+  background-color: #4B0082;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Tipografía personalizada */
+.fuente-especial {
+  font-family: 'Special Elite', monospace;
+}
+
+/* Título principal */
+.titulo-principal {
+  color: #FFFACD;
+}
+
+/* Etiqueta de autor */
+.autor-label {
+  font-size: 0.85rem;
+}
+
+/* Botón personalizado */
+.btn-ficciona {
+  background-color: #00FF7F !important;
+  color: #000000 !important;
+  border: none;
+}
+
+/* Footer estilizado */
+.footer-ficciona {
+  background: linear-gradient(to right, #2c2f73, #4b1d6f);
+  margin-top: 60px;
+}
+
+.footer-texto {
+  font-size: 0.8rem;
+}
+
+.link-privacidad {
+  font-size: 0.75rem;
+}

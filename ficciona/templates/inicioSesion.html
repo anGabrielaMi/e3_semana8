@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ficciona - Iniciar sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+
+  <body>
+    <!-- Barra de navegación principal -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/imagen_nav.png' %}" width="50" />
+          <strong>Ficciona</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'inicio' %}">Volver</a>
+            </li>
+          </ul>
+
+          <!-- Buscador -->
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Búsqueda" />
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-4">
+      <h3 class="mb-3 text-center fuente-especial">Iniciar sesión</h3>
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+          <div class="card shadow">
+            <div class="card-body">
+              <form method="post" action="{% url 'ingresar' %}" id="formulario-sesion">
+                {% csrf_token %}
+
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} text-center">{{ message }}</div>
+                  {% endfor %}
+                {% endif %}
+
+                <div class="mb-3">
+                  <label for="email-sesion" class="form-label">Correo electrónico</label>
+                  <input type="email" name="email" class="form-control" id="email-sesion" placeholder="nombre@ejemplo.com" required />
+                </div>
+
+                <div class="mb-3">
+                  <label for="password-sesion" class="form-label">Contraseña</label>
+                  <input type="password" name="password" class="form-control" id="password-sesion" placeholder="********" required />
+                </div>
+
+                <div class="d-flex justify-content-center gap-2">
+                  <button type="submit" class="btn btn-primary">Ingresar</button>
+                  <button type="reset" class="btn btn-secondary" id="limpiar-sesion">Limpiar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+document.getElementById('formulario-sesion').addEventListener('submit', function(e) {
+  e.preventDefault();  // Evita el envío tradicional
+
+  const formData = new FormData(this);
+
+  fetch('/login-ajax/', {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'  // ← Esto asegura que se guarde la sesión
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.redirect_url) {
+      window.location.href = data.redirect_url;  // ← Redirige con sesión activa
+    } else if (data.error) {
+      alert(data.error);  // ← Muestra error si las credenciales fallan
+    }
+  })
+  .catch(error => {
+    console.error('Error en el login:', error);
+    alert('Hubo un problema al iniciar sesión.');
+  });
+});
+</script>
+  </body>
+</html>

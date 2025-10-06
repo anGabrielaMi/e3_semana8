@@ -1,0 +1,21 @@
+<h2>Libros sobre {{ categoria }}</h2>
+<ul>
+  {% for libro in libros %}
+    <li>{{ libro.title }}</li>
+  {% empty %}
+    <li>No se encontraron libros.</li>
+  {% endfor %}
+</ul>
+
+<ul>
+  {% for libro in libros %}
+    <li>
+      <strong>{{ libro.title }}</strong><br>
+      {% if libro.cover_id %}
+        <img src="https://covers.openlibrary.org/b/id/{{ libro.cover_id }}-M.jpg" alt="Portada de {{ libro.title }}">
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="https://openlibrary.org{{ libro.key }}" target="_blank">Ver en Open Library</a>

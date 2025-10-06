@@ -1,0 +1,12 @@
+<h1>Publicaciones</h1>
+<ul>
+  {% for publicacion in publicaciones %}
+    <li>
+      <a href="{% url 'detalle_publicacion' publicacion.id %}">
+        {{ publicacion.titulo }} — {{ publicacion.usuario.username }}
+      </a>
+    </li>
+  {% empty %}
+    <li>No hay publicaciones aún.</li>
+  {% endfor %}
+</ul>

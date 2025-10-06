@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reseñas de Matemáticas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/resenas.css' %}" />
+
+    <script>
+  const usuarioAutenticado = "{{ usuario_autenticado|yesno:'true,false' }}";
+  const nombreUsuario = "{{ usuario_nombre }}";
+</script>
+  </head>
+
+  <body class="fondo-claro">
+    <!-- Navegación -->
+    <nav class="navbar navbar-light bg-light mb-4">
+      <div class="container">
+        <a class="navbar-brand fuente-especial" href="{% url 'inicio' %}">← Volver al inicio</a>
+        <button id="cerrar-sesion" type="button" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+      </div>
+    </nav>
+
+    <!-- Encabezado -->
+    <header class="text-center py-4">
+      <h1 class="fuente-especial titulo-principal">Reseñas de libros de Matemáticas</h1>
+    </header>
+
+    <!-- Reseñas destacadas -->
+    <section class="container mb-5">
+      <h3 class="mb-4 fuente-especial">Reseñas destacadas</h3>
+      <div class="row" id="contenedor-reseñas">
+        {% for publicacion in publicaciones %}
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ publicacion.titulo }}</h5>
+                <p class="card-text">{{ publicacion.contenido }}</p>
+                <p class="text-muted">Reseña por: {{ publicacion.usuario.username }}</p>
+                <p class="text-muted">
+                  <em>{{ publicacion.fecha_publicacion }}</em>
+                </p>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center">Aún no hay reseñas publicadas.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Formulario de reseña -->
+    <section class="container mb-5">
+      <h3 class="mb-4 fuente-especial">Escribe tu reseña</h3>
+      <p id="mensaje-login" class="alert alert-warning text-center fuente-especial">Debes iniciar sesión para publicar una reseña.</p>
+
+      <form id="form-reseña" class="solo-logueado">
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título del libro</label>
+          <input type="text" id="titulo" class="form-control" required disabled />
+        </div>
+
+        <div class="mb-3">
+          <label for="comentario" class="form-label">Tu reseña</label>
+          <textarea id="comentario" class="form-control" rows="4" required disabled></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Puntuación</label>
+          <select id="estrellas" class="form-select" disabled>
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★☆</option>
+            <option value="3">★★★☆☆</option>
+            <option value="2">★★☆☆☆</option>
+            <option value="1">★☆☆☆☆</option>
+          </select>
+          <p id="autor-reseña" class="text-muted autor-label">Reseña por:</p>
+        </div>
+
+        <button type="submit" class="btn btn-ficciona" disabled>Publicar reseña</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-white py-4 footer-ficciona">
+      <div class="container">
+        <p id="footer-texto" class="fuente-especial footer-texto">© 2025 Ficciona. Todos los derechos reservados.</p>
+        <p>
+          <a href="mailto:contacto@ficciona.com" class="text-white text-decoration-none">Contacto</a> |
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para cerrar sesión -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const botonCerrar = document.getElementById('cerrar-sesion')
+        if (botonCerrar) {
+          botonCerrar.addEventListener('click', () => {
+            window.location.href = '/logout/'
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
